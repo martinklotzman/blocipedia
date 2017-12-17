@@ -40,3 +40,6 @@ group :development do
 end
 
 gem 'bootstrap-sass'
+
+# Authentication for users to sign up and send emails
+gem 'devise'
