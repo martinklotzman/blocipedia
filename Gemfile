@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.2'
+gem 'rails', '~> 5.1.4'
 
 group :production do
   # Use pg as the production database for Active Record
@@ -43,3 +43,9 @@ gem 'bootstrap-sass'
 
 # Authentication for users to sign up and send emails
 gem 'devise'
+
+# RSpec testing
+group :development, :test do
+  gem 'rspec-rails', '~> 3.6'
+  gem 'rails-controller-testing'
+end
