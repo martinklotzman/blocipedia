@@ -48,4 +48,5 @@ gem 'devise'
 group :development, :test do
   gem 'rspec-rails', '~> 3.6'
   gem 'rails-controller-testing'
+  gem 'factory_bot_rails'
 end
