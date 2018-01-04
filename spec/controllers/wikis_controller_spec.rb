@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'support/controller_macros'
 include RandomData
 
 RSpec.describe WikisController, type: :controller do
@@ -6,6 +7,7 @@ let(:my_wiki) { Wiki.create!(title: RandomData.random_sentence, body: RandomData
 let(:my_user) { User.create!(email: RandomData.random_email, password: "password", password_confirmation: "password") }
 
   describe "GET #index" do
+    login_user
 
     it "returns http success" do
       get :index
@@ -20,6 +22,7 @@ let(:my_user) { User.create!(email: RandomData.random_email, password: "password
   end
 
   describe "GET #show" do
+    login_user
 
     it "returns http success" do
       get :show, params: { id: my_wiki.id }
@@ -38,6 +41,8 @@ let(:my_user) { User.create!(email: RandomData.random_email, password: "password
   end
 
   describe "GET #new" do
+    login_user
+
     it "returns http success" do
       get :new
       expect(response).to have_http_status(:success)
@@ -55,6 +60,8 @@ let(:my_user) { User.create!(email: RandomData.random_email, password: "password
   end
 
   describe "WIKI create" do
+    login_user
+
     it "increases the number of Wiki by 1" do
       expect{ post :create, params: { wiki: { title: RandomData.random_sentence, body: RandomData.random_paragraph }}}.to change(Wiki,:count).by(1)
     end
@@ -71,28 +78,32 @@ let(:my_user) { User.create!(email: RandomData.random_email, password: "password
   end
 
     describe "GET edit" do
-    it "returns http success" do
-      get :edit, params: { id: my_wiki.id }
-      expect(response).to have_http_status(:success)
+      login_user
+
+      it "returns http success" do
+        get :edit, params: { id: my_wiki.id }
+        expect(response).to have_http_status(:success)
+      end
+
+      it "renders the #edit view" do
+        get :edit, params: { id: my_wiki.id }
+        expect(response).to render_template :edit
+      end
+
+      it "assigns wiki to be updated to @wiki" do
+        get :edit, params: { id: my_wiki.id }
+
+        wiki_instance = assigns(:wiki)
+
+        expect(wiki_instance.id).to eq my_wiki.id
+        expect(wiki_instance.title).to eq my_wiki.title
+        expect(wiki_instance.body).to eq my_wiki.body
+      end
     end
-
-    it "renders the #edit view" do
-      get :edit, params: { id: my_wiki.id }
-      expect(response).to render_template :edit
-    end
-
-    it "assigns wiki to be updated to @wiki" do
-      get :edit, params: { id: my_wiki.id }
-
-      wiki_instance = assigns(:wiki)
-
-      expect(wiki_instance.id).to eq my_wiki.id
-      expect(wiki_instance.title).to eq my_wiki.title
-      expect(wiki_instance.body).to eq my_wiki.body
-    end
-  end
 
   describe "PUT update" do
+    login_user
+
     it "updates wiki with expected attributes" do
       new_title = RandomData.random_sentence
       new_body = RandomData.random_paragraph
@@ -115,6 +126,8 @@ let(:my_user) { User.create!(email: RandomData.random_email, password: "password
   end
 
   describe "DELETE destroy" do
+    login_user
+
     it "deletes the wiki" do
       delete :destroy, params: { id: my_wiki.id }
       count = Wiki.where({id: my_wiki.id}).size
