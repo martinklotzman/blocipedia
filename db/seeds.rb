@@ -10,6 +10,16 @@ require 'random_data'
   )
 end
 
+# Create standard user
+1.times do
+  User.create!(
+  email:     'standard@gmail.com',
+  password:  'helloworld',
+  role:       0,
+  confirmed_at: Time.now.utc # manually setting this prevents the confirmation email from being sent
+  )
+end
+
 # Create admin user
 1.times do
   User.create!(
