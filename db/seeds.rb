@@ -5,27 +5,28 @@ require 'random_data'
   User.create!(
     #name: RandomData.random_name,
     email: RandomData.random_email,
-    password: RandomData.random_sentence
+    password: RandomData.random_sentence,
+    confirmed_at: Time.now.utc # manually setting this prevents the confirmation email from being sent
   )
 end
 
 # Create admin user
-unless User.find_by(email: 'admin@example.com')
-  User.create!(
-    #name: 'Admin User',
-    email: 'admin@example.com',
-    password: 'helloworld',
-    #role: 'admin'
-  )
-end
-
-unless User.find_by(email: 'member@example.com')
-  User.create!(
-    #name: 'Member User',
-    email: 'member@example.com',
-    password: 'helloworld'
-  )
-end
+# unless User.find_by(email: 'admin@example.com')
+#   User.create!(
+#     #name: 'Admin User',
+#     email: 'admin@example.com',
+#     password: 'helloworld',
+#     #role: 'admin'
+#   )
+# end
+#
+# unless User.find_by(email: 'member@example.com')
+#   User.create!(
+#     #name: 'Member User',
+#     email: 'member@example.com',
+#     password: 'helloworld'
+#   )
+# end
 users = User.all
 
 puts "#{User.count} users created"
@@ -41,6 +42,6 @@ end
 
 wikis = Wiki.all
 
-puts "#{Wiki.count} posts created"
+puts "#{Wiki.count} wikis created"
 
 puts "Seed finished"
