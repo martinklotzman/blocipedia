@@ -11,28 +11,29 @@ require 'random_data'
 end
 
 # Create admin user
-# unless User.find_by(email: 'admin@example.com')
-#   User.create!(
-#     #name: 'Admin User',
-#     email: 'admin@example.com',
-#     password: 'helloworld',
-#     #role: 'admin'
-#   )
-# end
-#
-# unless User.find_by(email: 'member@example.com')
-#   User.create!(
-#     #name: 'Member User',
-#     email: 'member@example.com',
-#     password: 'helloworld'
-#   )
-# end
+1.times do
+  User.create!(
+  email:     'admin@gmail.com',
+  password:  'helloworld',
+  role:       2,
+  confirmed_at: Time.now.utc # manually setting this prevents the confirmation email from being sent
+  )
+end
+
+# Create premium user
+1.times do
+  User.create!(
+  email:     'premium@gmail.com',
+  password:  'helloworld',
+  role:       1,
+  confirmed_at: Time.now.utc # manually setting this prevents the confirmation email from being sent
+  )
+end
+
 users = User.all
 
-puts "#{User.count} users created"
-
 # Create Wikis
-10.times do
+50.times do
   Wiki.create!(
     user: users.sample,
     title:  RandomData.random_sentence,
@@ -42,6 +43,6 @@ end
 
 wikis = Wiki.all
 
-puts "#{Wiki.count} wikis created"
-
 puts "Seed finished"
+puts "#{User.count} users created"
+puts "#{Wiki.count} wikis created"
