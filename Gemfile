@@ -47,6 +47,9 @@ gem 'devise'
 # Authorization system
 gem 'pundit'
 
+# Fake data for seeding
+gem 'faker'
+
 # RSpec testing
 group :development, :test do
   gem 'rspec-rails', '~> 3.6'
