@@ -11,6 +11,12 @@ class WikiPolicy < ApplicationPolicy
     create?
   end
 
+  def edit?
+    true
+    # user.present? || user.admin?
+    # record.public?
+  end
+
   def destroy?
     true
   end
