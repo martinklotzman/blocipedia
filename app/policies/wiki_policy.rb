@@ -1,10 +1,17 @@
 class WikiPolicy < ApplicationPolicy
+  attr_reader :user, :wiki
+
+  def initialize(user, wiki)
+    @user = user
+    @wiki = wiki
+  end
+
   def index?
-    true
+    user.present?
   end
 
   def create?
-    true
+    user.present?
   end
 
   def new?
@@ -12,16 +19,16 @@ class WikiPolicy < ApplicationPolicy
   end
 
   def edit?
-    true
+    update?
     # user.present? || user.admin?
     # record.public?
   end
 
   def destroy?
-    true
+     user.admin?
   end
 
   def update?
-    true
+    user.present?
   end
 end
