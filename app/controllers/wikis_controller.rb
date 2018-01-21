@@ -1,6 +1,10 @@
 class WikisController < ApplicationController
   def index
-    @wikis = Wiki.all
+    if current_user.standard?
+      @wikis = Wiki.where(private: false)
+    else
+      @wikis = Wiki.all
+    end
     authorize @wikis
   end
 
@@ -48,6 +52,7 @@ class WikisController < ApplicationController
 
   def destroy
     @wiki = Wiki.find(params[:id])
+    authorize @wiki
 
     if @wiki.destroy
       flash[:notice] = "\"#{@wiki.title}\" was deleted successfully."
@@ -61,6 +66,6 @@ class WikisController < ApplicationController
   private
 
   def wiki_params
-    params.require(:wiki).permit(:title, :body)
+    params.require(:wiki).permit(:title, :body, :private)
   end
 end

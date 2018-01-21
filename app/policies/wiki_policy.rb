@@ -10,6 +10,10 @@ class WikiPolicy < ApplicationPolicy
     user.present?
   end
 
+  def show?
+    scope.where(:id => wiki.id).exists?
+  end
+
   def create?
     user.present?
   end
@@ -20,12 +24,10 @@ class WikiPolicy < ApplicationPolicy
 
   def edit?
     update?
-    # user.present? || user.admin?
-    # record.public?
   end
 
   def destroy?
-     user.admin?
+    user.admin?
   end
 
   def update?

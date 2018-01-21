@@ -48,7 +48,18 @@ users = User.all
   Wiki.create!(
     user: users.sample,
     title:  Faker::Seinfeld.quote,
-    body:   Faker::RickAndMorty.quote
+    body:   Faker::RickAndMorty.quote,
+    private: false
+  )
+end
+
+# Create Private Wikis
+10.times do
+  Wiki.create!(
+    user: users.sample,
+    title:  'Private - ' + Faker::Seinfeld.quote,
+    body:   Faker::RickAndMorty.quote,
+    private: true
   )
 end
 
