@@ -56,6 +56,9 @@ gem 'stripe'
 # Environment variables (API) keys
 gem 'figaro', '1.0'
 
+# Markdown
+gem 'redcarpet'
+
 # RSpec testing
 group :development, :test do
   gem 'rspec-rails', '~> 3.6'

@@ -1,4 +1,5 @@
 class WikisController < ApplicationController
+  before_action :authenticate_user!
   def index
     if current_user.standard?
       @wikis = Wiki.where(private: false)
