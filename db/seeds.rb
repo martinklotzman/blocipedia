@@ -1,11 +1,12 @@
 require 'random_data'
+require 'faker'
 
 # Create Users
 5.times do
   User.create!(
     #name: RandomData.random_name,
-    email: RandomData.random_email,
-    password: RandomData.random_sentence,
+    email: Faker::Internet.email,
+    password: Faker::Internet.password,
     confirmed_at: Time.now.utc # manually setting this prevents the confirmation email from being sent
   )
 end
@@ -46,8 +47,8 @@ users = User.all
 50.times do
   Wiki.create!(
     user: users.sample,
-    title:  RandomData.random_sentence,
-    body:   RandomData.random_paragraph
+    title:  Faker::Seinfeld.quote,
+    body:   Faker::RickAndMorty.quote
   )
 end
 
