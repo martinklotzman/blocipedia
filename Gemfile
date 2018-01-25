@@ -44,6 +44,9 @@ gem 'bootstrap-sass'
 # Authentication for users to sign up and send emails
 gem 'devise'
 
+# Authorization system
+gem 'pundit'
+
 # RSpec testing
 group :development, :test do
   gem 'rspec-rails', '~> 3.6'
