@@ -8,4 +8,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   enum role: [:standard, :premium, :admin]
+
+  def downgrade_user!
+    self.role = 0
+    self.wikis.each do |wiki|
+      wiki.make_public! 
+    end
+    save!
+  end
 end

@@ -3,12 +3,9 @@ class DowngradeController < ApplicationController
   end
 
   def create
-    current_user.standard!
-    current_user.wikis.each do |pub|
-      pub.update_attribute(:private, false)
-    end
+    current_user.downgrade_user!
 
-    flash[:notice] = "You have successfully downgraded your account. Your private wikis are now public."
+    flash[:notice] = "You have successfully downgraded your account."
     redirect_to root_path
   end
 end
