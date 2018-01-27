@@ -1,5 +1,10 @@
 class WikisController < ApplicationController
   before_action :authenticate_user!
+  rescue_from Pundit::NotAuthorizedError do
+    flash[:notice] = "You are not authorized to perform that action."
+    redirect_to root_path
+  end
+
   def index
     if current_user.standard?
       @wikis = Wiki.where(private: false)
