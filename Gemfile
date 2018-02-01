@@ -50,6 +50,12 @@ gem 'pundit'
 # Fake data for seeding
 gem 'faker'
 
+# Stripe payments
+gem 'stripe'
+
+# Environment variables (API) keys
+gem 'figaro', '1.0'
+
 # RSpec testing
 group :development, :test do
   gem 'rspec-rails', '~> 3.6'

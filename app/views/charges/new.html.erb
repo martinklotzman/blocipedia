@@ -1,0 +1,10 @@
+<%= form_tag charges_path do %>
+<p>Your current membership level is: <strong><%= current_user.role %></strong></p>
+
+  <% if current_user.role == 'standard' %>
+    <script class='stripe-button' src="https://checkout.stripe.com/checkout.js" data-key="<%= @stripe_btn_data[:key] %>" data-amount="<%= @stripe_btn_data[:amount] %>" data-description="<%= @stripe_btn_data[:description] %>" ></script>
+  <% elsif current_user.role == 'premium' %>
+    <p>Remember, you will have to pay another $15 to get premium features back on your account, and your private wikis will become public.</p>
+    <%= link_to "Downgrade", new_downgrade_path, class: 'btn btn-danger'%>
+  <% end %>
+<% end %>
