@@ -11,8 +11,7 @@ class User < ApplicationRecord
 
   def downgrade_user!
     self.role = 0
-    self.wikis.each do |wiki|
-      wiki.make_public! 
+    self.wikis.update_all(private: false)
     end
     save!
   end
