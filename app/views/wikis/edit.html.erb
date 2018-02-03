@@ -1,3 +1,7 @@
 <h1>Edit Wiki</h1>
 
 <%= render 'wikis' %>
+
+<div>
+  <%= render partial: 'collaborators/collaborators', locals: { wiki: @wiki } %>
+</div>
